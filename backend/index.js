@@ -44,17 +44,21 @@ const files = [
   },
 ];
 
-app.get("/nftCollection", (req, res) => {
+
+app.get("/nftCollection", async (req, res) => {
   const { query } = req;
 
-  const collection = files.find((e) => e.contract === query.contract);
+  let data;
 
-  if (!collection) {
-    return res.status(400).json({ error: "Invalid contract address" });
+  try{
+    data = files.find((e)=> e.contract === query.contract).data
+  } catch(e){
+    return res.status(400);
   }
 
-  return res.status(200).json(collection.data);
+  return res.status(200).json(data);
 });
+
 
 app.get("/*", (req, res) => {
   res.sendFile(path.join(buildPath, "index.html"), (err) => {
@@ -64,6 +68,9 @@ app.get("/*", (req, res) => {
   });
 });
 
+
 app.listen(port, () => {
   console.log(`Listening for API Calls`);
 });
+
+
