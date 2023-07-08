@@ -25,7 +25,7 @@ function Collection() {
 
   async function getCollection(contract){
 
-    const res = await axios.get(`http://3.88.232.203/nftCollection`, {
+    const res = await axios.get(`http://54.235.106.5/nftCollection`, {
       params: { contract: contract },
     });
 
